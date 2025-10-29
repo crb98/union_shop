@@ -10,11 +10,11 @@
 | About Us Page | Static content page with company information | 3% | [About Us](https://shop.upsu.net/pages/about-us) |
 | Footer Content | Footer with social links, opening hours, and information | 4% | [Homepage](https://shop.upsu.net/) |
 | Collections Overview | Grid display of all collections (hardcoded data acceptable) | 4% | [Collections](https://shop.upsu.net/collections/) |
-| Collection Overview | Grid display of all items within each collection (hardcoded data acceptable) | 8% | [Collection Example](https://shop.upsu.net/collections/clothing-2) |
+| Collection Overview | Grid display of all items within each collection (hardcoded data acceptable) | 4% | [Collection Example](https://shop.upsu.net/collections/clothing-2) |
 | Product Display | Product page showing image, name, and price (hardcoded data acceptable) | 5% | [Product Exmple](https://shop.upsu.net/collections/clothing-2/products/classic-hoodie) |
 | **INTERMEDIATE FUNCTIONALITY (45% total)** |
-| Dynamic Collections | Collections overview populated from data source | 5% | [Collections](https://shop.upsu.net/collections/) |
-| Dynamic Product Listings | Product listings within collections populated from data | 8% | [Collection Example](https://shop.upsu.net/collections/autumn-favourites) |
+| Dynamic Collections | Collections overview populated from data models or services | 5% | [Collections](https://shop.upsu.net/collections/) |
+| Dynamic Product Listings | Product listings within collections populated from data models or services | 8% | [Collection Example](https://shop.upsu.net/collections/autumn-favourites) |
 | Individual Product Pages | Product detail pages with images, descriptions, and information | 10% | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
 | Shopping Cart UI | Add items to cart, view cart contents, cart interface | 8% | [Cart](https://shop.upsu.net/cart) |
 | Authentication UI | Login/signup forms and authentication interface (UI only) | 4% | [Sign In](https://shopify.com/authentication/22645997643/login) |
@@ -41,13 +41,16 @@
 ### Technical Implementation Notes
 - Focus on functionality over visual design
 - External integrations (Shopify auth, payment systems) not required
-- **Basic Level**: Hardcoded data acceptable for collections and products
+- **Basic Level**: Hardcoded data* acceptable for collections and products
 - **Intermediate Level**: UI implementation focus, data can be simulated
 - **Advanced Level**: Full functionality with proper data management and state handling
 
+### Terminology
+**Hardcoded data*** = Data that is written directly into your Flutter code (e.g., creating List<Product> with fixed values in your Dart files) rather than loading from external sources like APIs, databases, or JSON files.
+
 ### Mark Distribution Summary
-- **Basic (30%)**: Essential pages, navigation, static content (hardcoded data acceptable)
-- **Intermediate (45%)**: Core e-commerce UI and dynamic content from data
+- **Basic (30%)**: Essential pages, navigation, static content (hardcoded data* acceptable)
+- **Intermediate (45%)**: Core e-commerce UI and dynamic content from data models/services
 - **Advanced (25%)**: Complete systems with full functionality and data management
 
 **Total: 100%**
