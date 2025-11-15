@@ -145,11 +145,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
               ),
             ),
 
-            // hero/banner for About Us
-            Container(
-              width: double.infinity,
-              color: Colors.grey.shade100,
-              padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 20),
+            // main content
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1000),
                 child: Column(
@@ -157,27 +155,38 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   children: const [
                     Text(
                       'About Us',
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 12),
                     Text(
-                      'The Union Shop provides a wide range of university-branded merchandise, essentials and offers for students.',
-                      style: TextStyle(fontSize: 16, color: Colors.black87),
+                      'Welcome to the Union Shop!',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 12),
+
+                    Text(
+                      "We're dedicated to giving you the very best University branded products, with a range of clothing and merchandise available to shop all year round. We even offer an exclusive personalisation service!",
+                      style: TextStyle(fontSize: 15, height: 1.5),
+                    ),
+                    SizedBox(height: 12),
+
+                    Text(
+                      'All online purchases are available for delivery or in‑store collection!',
+                      style: TextStyle(fontSize: 15, height: 1.5),
+                    ),
+                    SizedBox(height: 12),
+
+                    Text(
+                      'We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please contact us at hello@upsu.net.',
+                      style: TextStyle(fontSize: 15, height: 1.5),
+                    ),
+                    SizedBox(height: 18),
+
+                    Text(
+                      'Happy shopping!\n\nThe Union Shop & Reception Team',
+                      style: TextStyle(fontSize: 15, height: 1.5),
                     ),
                   ],
-                ),
-              ),
-            ),
-
-            // main content (simple)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1000),
-                child: const Text(
-                  'We are committed to serving the student community with quality products, fair pricing and convenient services. '
-                  'This page is a stub for your About Us content — add mission, team, sustainability notes and other details here.',
-                  style: TextStyle(fontSize: 15, height: 1.5),
                 ),
               ),
             ),
