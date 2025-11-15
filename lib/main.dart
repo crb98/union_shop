@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/search_page.dart';
+import 'package:union_shop/about_us_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -24,6 +25,7 @@ class UnionShopApp extends StatelessWidget {
       // In your browser, try this link: http://localhost:49856/#/product
       routes: {
         '/product': (context) => const ProductPage(),
+        '/about': (context) => const AboutUsPage(),
         '/search': (context) => const SearchPage(),
       },
     );
@@ -136,7 +138,23 @@ class HomeScreen extends StatelessWidget {
                                       navLink('The Print Shack'),
                                       const SizedBox(width: 12),
                                       navLink('SALE!'),
-                                      navLink('About'),  
+                                      const SizedBox(width: 12),
+                                      // About link navigates to /about
+                                      TextButton(
+                                        onPressed: () => Navigator.pushNamed(innerContext, '/about'),
+                                        style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                                          overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                          foregroundColor: MaterialStateProperty.resolveWith((states) {
+                                            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                                              return Colors.black87;
+                                            }
+                                            return Colors.grey;
+                                          }),
+                                        ),
+                                        child: const Text('About', style: TextStyle(fontSize: 14)),
+                                      ),
+                                      const SizedBox(width: 12),
                                       navLink('UPSU.net'),                                                                          
                                     ],
                                   ),
