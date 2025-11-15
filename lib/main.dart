@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
+import 'package:union_shop/search_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -21,7 +22,10 @@ class UnionShopApp extends StatelessWidget {
       initialRoute: '/',
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
-      routes: {'/product': (context) => const ProductPage()},
+      routes: {
+        '/product': (context) => const ProductPage(),
+        '/search': (context) => const SearchPage(),
+      },
     );
   }
 }
@@ -334,21 +338,45 @@ class HomeScreen extends StatelessWidget {
 
                   final center = section('Help and Info', [
                     TextButton(
-                      onPressed: placeholderCallbackForButtons,
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      onPressed: () => Navigator.pushNamed(context, '/search'),
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        // remove the default hover/splash colour
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        // make text darker on hover, otherwise grey
+                        foregroundColor: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.hovered) ||
+                              states.contains(MaterialState.pressed)) {
+                            return Colors.black87;
+                          }
+                          return Colors.grey;
+                        }),
+                        alignment: Alignment.centerLeft,
+                      ),
                       child: const Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Search',
-                            style: TextStyle(color: Colors.grey, fontSize: 14)),
+                            style: TextStyle(fontSize: 14)),
                       ),
                     ),
                     TextButton(
                       onPressed: placeholderCallbackForButtons,
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        foregroundColor: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.hovered) ||
+                              states.contains(MaterialState.pressed)) {
+                            return Colors.black87;
+                          }
+                          return Colors.grey;
+                        }),
+                        alignment: Alignment.centerLeft,
+                      ),
                       child: const Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Terms & Conditions of Sale Policy',
-                            style: TextStyle(color: Colors.grey, fontSize: 14)),
+                            style: TextStyle(fontSize: 14)),
                       ),
                     ),
                   ]);
