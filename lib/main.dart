@@ -95,66 +95,117 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const Spacer(),
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 600),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
+
+                          // center area that holds nav (or menu on small screens)
+                          Expanded(
+                            child: Builder(builder: (innerContext) {
+                              final isWide =
+                                  MediaQuery.of(innerContext).size.width >= 800;
+
+                              Widget navLink(String label) {
+                                return TextButton(
                                   onPressed: placeholderCallbackForButtons,
+                                  style: ButtonStyle(
+                                    padding:
+                                        MaterialStateProperty.all(EdgeInsets.zero),
+                                    overlayColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    foregroundColor:
+                                        MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.hovered) ||
+                                          states.contains(MaterialState.pressed)) {
+                                        return Colors.black87;
+                                      }
+                                      return Colors.grey;
+                                    }),
+                                  ),
+                                  child: Text(label,
+                                      style: const TextStyle(fontSize: 14)),
+                                );
+                              }
+
+                              if (isWide) {
+                                return Center(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      navLink('Home'),
+                                      const SizedBox(width: 12),
+                                      navLink('Shop'),
+                                      const SizedBox(width: 12),
+                                      navLink('The Print Shack'),
+                                      const SizedBox(width: 12),
+                                      navLink('SALE!'),
+                                      navLink('About'),  
+                                      navLink('UPSU.net'),                                                                          
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                // collapsed -> show a menu button (centered between logo and icons)
+                                return Center(
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.menu,
+                                      size: 18,
+                                      color: Colors.grey,
+                                    ),
+                                    padding: const EdgeInsets.all(8),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 32,
+                                      minHeight: 32,
+                                    ),
+                                    onPressed: placeholderCallbackForButtons,
+                                  ),
+                                );
+                              }
+                            }),
+                          ),
+
+                          // icons on the far right
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.search,
+                                  size: 18,
+                                  color: Colors.grey,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.person_outline,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.person_outline,
+                                  size: 18,
+                                  color: Colors.grey,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
                                 ),
-                              ],
-                            ),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.shopping_bag_outlined,
+                                  size: 18,
+                                  color: Colors.grey,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                            ],
                           ),
                         ],
                       ),
