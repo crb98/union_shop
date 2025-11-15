@@ -160,7 +160,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                     SizedBox(height: 12),
                     Text(
                       'Welcome to the Union Shop!',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 15, height: 1.5),
                     ),
                     SizedBox(height: 12),
 

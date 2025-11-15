@@ -50,8 +50,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      backgroundColor: Colors.white,
+       body: SingleChildScrollView(
+         child: Column(
           children: [
             // Header
             Container(
@@ -357,6 +358,165 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+              ),
+            ),
+
+            // Our Range Section
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1000),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center, // centre title and content
+                    children: [
+                      const Text(
+                        'OUR RANGE',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      LayoutBuilder(builder: (ctx, constraints) {
+                        final isWide = constraints.maxWidth >= 800;
+
+                        Widget box(String label) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              border: Border.all(color: Colors.grey.shade300),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  label,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+
+                        if (isWide) {
+                          // four square boxes in one centered row
+                          return Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(child: AspectRatio(aspectRatio: 1, child: box('Clothing'))),
+                              const SizedBox(width: 16),
+                              Expanded(child: AspectRatio(aspectRatio: 1, child: box('Merchandise'))),
+                              const SizedBox(width: 16),
+                              Expanded(child: AspectRatio(aspectRatio: 1, child: box('Graduation'))),
+                              const SizedBox(width: 16),
+                              Expanded(child: AspectRatio(aspectRatio: 1, child: box('SALE'))),
+                            ],
+                          );
+                        } else {
+                          // responsive fallback: two columns on small screens
+                          return GridView.count(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                            childAspectRatio: 1,
+                            children: [
+                              box('Clothing'),
+                              box('Merchandise'),
+                              box('Graduation'),
+                              box('SALE'),
+                            ],
+                          );
+                        }
+                      }),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // personalisation section
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1000),
+                  child: LayoutBuilder(builder: (ctx, constraints) {
+                    final isWide = constraints.maxWidth >= 700;
+
+                    final leftBlock = Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Add a Personal Touch',
+                          style: TextStyle(fontSize: 20, height: 1.5, color: Colors.black87),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'First add your item of clothing to your cart then click below to add your text! One line of text contains 10 characters!',
+                          style: TextStyle(
+                            fontSize: 14,
+                            height: 1.4,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ElevatedButton(
+                            onPressed: placeholderCallbackForButtons,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF4d2963),
+                              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                            ),
+                            child: const Text(
+                              'CLICK HERE TO ADD TEXT!',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+
+                    final blueSquare = SizedBox(
+                      width: 420,
+                      height: 420,
+                      child: Container(
+                        color: const Color(0xFF0A72D8),
+                      ),
+                    );
+
+                    if (isWide) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(child: leftBlock),
+                          const SizedBox(width: 24),
+                          blueSquare,
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          leftBlock,
+                          const SizedBox(height: 16),
+                          Center(child: blueSquare),
+                        ],
+                      );
+                    }
+                  }),
                 ),
               ),
             ),
