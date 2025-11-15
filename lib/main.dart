@@ -293,13 +293,124 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               color: Colors.grey[50],
               padding: const EdgeInsets.all(24),
-              child: const Text(
-                'Placeholder Footer',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWide = constraints.maxWidth >= 600;
+
+                  Widget section(String title, List<Widget> items) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(title,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            )),
+                        const SizedBox(height: 8),
+                        ...items.map((w) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: w,
+                            )),
+                      ],
+                    );
+                  }
+
+                  // create controller for the email field
+                  final emailController = TextEditingController();
+
+                  final left = section('Opening Hours', [
+                    const Text('(Term Time)',
+                        style: TextStyle(color: Colors.grey, fontSize: 14)),
+                    const Text('Monday - Friday 9am - 4pm',
+                        style: TextStyle(color: Colors.grey, fontSize: 14)),
+                    const Text('(Outside of Term Time / Consolidation Weeks)',
+                        style: TextStyle(color: Colors.grey, fontSize: 14)),
+                    const Text('Monday - Friday 9am - 3pm',
+                        style: TextStyle(color: Colors.grey, fontSize: 14)),     
+                    const Text('Purchase online 24/7',
+                        style: TextStyle(color: Colors.grey, fontSize: 14)),                                               
+                  ]);
+
+                  final center = section('Help and Info', [
+                    TextButton(
+                      onPressed: placeholderCallbackForButtons,
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Search',
+                            style: TextStyle(color: Colors.grey, fontSize: 14)),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: placeholderCallbackForButtons,
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Terms & Conditions of Sale Policy',
+                            style: TextStyle(color: Colors.grey, fontSize: 14)),
+                      ),
+                    ),
+                  ]);
+
+                  final right = section('Latest Offers', [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              hintText: 'Email address',
+                              isDense: true,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.zero),
+                            ),
+                            style: const TextStyle(color: Colors.grey, fontSize: 14),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: () {
+                            placeholderCallbackForButtons();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4d2963),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 16),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                          ),
+                          child: const Text('Subscribe',
+                              style: TextStyle(fontSize: 14)),
+                        ),
+                      ],
+                    ),
+                  ]);
+
+                  if (isWide) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: left),
+                        Expanded(child: center),
+                        Expanded(child: right),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        left,
+                        const SizedBox(height: 16),
+                        center,
+                        const SizedBox(height: 16),
+                        right,
+                      ],
+                    );
+                  }
+                },
               ),
             ),
           ],
