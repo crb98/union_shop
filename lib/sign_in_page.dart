@@ -66,9 +66,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
             child: Column(
-              children: [
-                // Logo at the top of the white square
-                Image.network(
+              children: [                Image.network(
                   'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
                   height: 72,
                   fit: BoxFit.contain,
@@ -83,7 +81,6 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 const SizedBox(height: 18),
 
-                // Email field and Continue button
                 Expanded(
                   child: Center(
                     child: Column(
@@ -112,7 +109,6 @@ class _SignInPageState extends State<SignInPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              // placeholder behaviour: navigate home
                               Navigator.pushNamedAndRemoveUntil(
                                   context, '/', (route) => false);
                             },
@@ -125,7 +121,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             child: const Text(
                               'Continue',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                         ),
