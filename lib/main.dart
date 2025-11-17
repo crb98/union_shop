@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/search_page.dart';
 import 'package:union_shop/about_us_page.dart';
+import 'package:union_shop/sign_in_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -26,6 +27,7 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/product': (context) => const ProductPage(),
         '/about': (context) => const AboutUsPage(),
+        '/signin': (context) => const SignInPage(),
         '/search': (context) => const SearchPage(),
       },
     );
@@ -110,13 +112,13 @@ class HomeScreen extends StatelessWidget {
                                   onPressed: placeholderCallbackForButtons,
                                   style: ButtonStyle(
                                     padding:
-                                        MaterialStateProperty.all(EdgeInsets.zero),
-                                    overlayColor: MaterialStateProperty.all(
+                                        WidgetStateProperty.all(EdgeInsets.zero),
+                                    overlayColor: WidgetStateProperty.all(
                                         Colors.transparent),
                                     foregroundColor:
-                                        MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.hovered) ||
-                                          states.contains(MaterialState.pressed)) {
+                                        WidgetStateProperty.resolveWith((states) {
+                                      if (states.contains(WidgetState.hovered) ||
+                                          states.contains(WidgetState.pressed)) {
                                         return Colors.black87;
                                       }
                                       return Colors.grey;
@@ -144,10 +146,10 @@ class HomeScreen extends StatelessWidget {
                                       TextButton(
                                         onPressed: () => Navigator.pushNamed(innerContext, '/about'),
                                         style: ButtonStyle(
-                                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                                          foregroundColor: MaterialStateProperty.resolveWith((states) {
-                                            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                                          padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                          overlayColor: WidgetStateProperty.all(Colors.transparent),
+                                          foregroundColor: WidgetStateProperty.resolveWith((states) {
+                                            if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                                               return Colors.black87;
                                             }
                                             return Colors.grey;
@@ -209,7 +211,7 @@ class HomeScreen extends StatelessWidget {
                                   minWidth: 32,
                                   minHeight: 32,
                                 ),
-                                onPressed: placeholderCallbackForButtons,
+                                onPressed: () => Navigator.pushNamed(context, '/signin'),
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -569,13 +571,11 @@ class HomeScreen extends StatelessWidget {
                     TextButton(
                       onPressed: () => Navigator.pushNamed(context, '/search'),
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        // remove the default hover/splash colour
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        // make text darker on hover, otherwise grey
-                        foregroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.hovered) ||
-                              states.contains(MaterialState.pressed)) {
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        foregroundColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.hovered) ||
+                              states.contains(WidgetState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
@@ -591,11 +591,11 @@ class HomeScreen extends StatelessWidget {
                     TextButton(
                       onPressed: placeholderCallbackForButtons,
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        foregroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.hovered) ||
-                              states.contains(MaterialState.pressed)) {
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        foregroundColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.hovered) ||
+                              states.contains(WidgetState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;

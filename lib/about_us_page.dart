@@ -24,11 +24,11 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.hovered) ||
-              states.contains(MaterialState.pressed)) {
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered) ||
+              states.contains(WidgetState.pressed)) {
             return Colors.black87;
           }
           return Colors.grey;
@@ -150,9 +150,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
               padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1000),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'About Us',
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -213,11 +213,11 @@ class _AboutUsPageState extends State<AboutUsPage> {
                     TextButton(
                       onPressed: () => Navigator.pushNamed(ctx, '/search'),
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        foregroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.hovered) ||
-                              states.contains(MaterialState.pressed)) {
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        foregroundColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.hovered) ||
+                              states.contains(WidgetState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
@@ -232,11 +232,11 @@ class _AboutUsPageState extends State<AboutUsPage> {
                     TextButton(
                       onPressed: _placeholder,
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        foregroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.hovered) ||
-                              states.contains(MaterialState.pressed)) {
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        foregroundColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.hovered) ||
+                              states.contains(WidgetState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
@@ -278,8 +278,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Icon(Icons.email, size: 16, color: Colors.grey),
                         SizedBox(width: 8),
                         Text('shop@upsu.net', style: TextStyle(color: Colors.grey)),
