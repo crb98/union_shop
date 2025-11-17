@@ -1,11 +1,50 @@
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
   @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController _emailController = TextEditingController();
+  late final FocusNode _emailFocus;
+
+  @override
+  void initState() {
+    super.initState();
+    // initial placeholder text inside the field
+    _emailController.text = 'Email';
+    _emailFocus = FocusNode();
+    _emailFocus.addListener(() {
+      if (_emailFocus.hasFocus) {
+        if (_emailController.text == 'Email') {
+          setState(() => _emailController.clear());
+        }
+      } else {
+        if (_emailController.text.isEmpty) {
+          setState(() => _emailController.text = 'Email');
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _emailFocus.removeListener(() {});
+    _emailFocus.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  bool get _isPlaceholder => _emailController.text == 'Email';
+
+  @override
   Widget build(BuildContext context) {
-    final double squareSize = MediaQuery.of(context).size.width > 480 ? 420 : MediaQuery.of(context).size.width * 0. Nine;
+    final double squareSize = MediaQuery.of(context).size.width > 480
+        ? 420
+        : MediaQuery.of(context).size.width * 0.9;
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -36,28 +75,59 @@ class SignInPage extends StatelessWidget {
                   errorBuilder: (context, error, stackTrace) {
                     return const SizedBox(
                       height: 72,
-                      child: Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
+                      child: Center(
+                          child:
+                              Icon(Icons.image_not_supported, color: Colors.grey)),
                     );
                   },
                 ),
                 const SizedBox(height: 18),
 
-                // Placeholder for sign-in form or content
+                // Email field and Continue button
                 Expanded(
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text(
-                          'Sign in to your account',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      children: [
+                        const Text(
+                          'Sign in',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Email',
-                          style: TextStyle(color: Colors.black54),
-                          textAlign: TextAlign.center,
+                        const SizedBox(height: 12),
+                        TextField(
+                          controller: _emailController,
+                          focusNode: _emailFocus,
+                          keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                              color: _isPlaceholder ? Colors.grey : Colors.black87),
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            isDense: true,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // placeholder behaviour: navigate home
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/', (route) => false);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF4d2963),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 16),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero),
+                            ),
+                            child: const Text(
+                              'Continue',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -71,5 +141,3 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
-
-
