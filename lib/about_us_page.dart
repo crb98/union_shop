@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/widgets/site_shell.dart';
 
 class AboutUsPage extends StatefulWidget {
   const AboutUsPage({super.key});
@@ -66,252 +67,49 @@ class _AboutUsPageState extends State<AboutUsPage> {
       ),
     );
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // top thin banner
-            Container(
-              width: double.infinity,
-              color: const Color(0xFF4d2963),
-              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-              child: const SafeArea(
-                bottom: false,
-                child: Text(
-                  'PLACEHOLDER HEADER TEXT',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                  textAlign: TextAlign.center,
-                ),
+    return AppShell(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'About Us',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-            ),
-
-            // header: logo, centered nav, icons on right
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              child: Row(
-                children: [
-                  // logo left
-                  logo,
-
-                  // nav center (expands)
-                  Expanded(
-                    child: Builder(builder: (innerCtx) {
-                      final isWide = MediaQuery.of(innerCtx).size.width >= 800;
-                      if (isWide) {
-                        return Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              _navLink('Home', () => Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false)),
-                              const SizedBox(width: 12),
-                              _navLink('Products', _placeholder),
-                              const SizedBox(width: 12),
-                              _navLink('Offers', _placeholder),
-                              const SizedBox(width: 12),
-                              _navLink('Contact', _placeholder),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return Center(
-                          child: IconButton(
-                            icon: const Icon(Icons.menu, color: Colors.grey, size: 20),
-                            onPressed: _placeholder,
-                          ),
-                        );
-                      }
-                    }),
-                  ),
-
-                  // icons right
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.search, size: 20, color: Colors.grey),
-                        onPressed: () => Navigator.pushNamed(context, '/search'),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.person_outline, size: 20, color: Colors.grey),
-                        onPressed: _placeholder,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.shopping_bag_outlined, size: 20, color: Colors.grey),
-                        onPressed: _placeholder,
-                      ),
-                    ],
-                  ),
-                ],
+              SizedBox(height: 12),
+              Text(
+                'Welcome to the Union Shop!',
+                style: TextStyle(fontSize: 15, height: 1.5),
               ),
-            ),
+              SizedBox(height: 12),
 
-            // main content
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1000),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'About Us',
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 12),
-                    Text(
-                      'Welcome to the Union Shop!',
-                      style: TextStyle(fontSize: 15, height: 1.5),
-                    ),
-                    SizedBox(height: 12),
-
-                    Text(
-                      "We're dedicated to giving you the very best University branded products, with a range of clothing and merchandise available to shop all year round. We even offer an exclusive personalisation service!",
-                      style: TextStyle(fontSize: 15, height: 1.5),
-                    ),
-                    SizedBox(height: 12),
-
-                    Text(
-                      'All online purchases are available for delivery or in‑store collection!',
-                      style: TextStyle(fontSize: 15, height: 1.5),
-                    ),
-                    SizedBox(height: 12),
-
-                    Text(
-                      'We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please contact us at hello@upsu.net.',
-                      style: TextStyle(fontSize: 15, height: 1.5),
-                    ),
-                    SizedBox(height: 18),
-
-                    Text(
-                      'Happy shopping!\n\nThe Union Shop & Reception Team',
-                      style: TextStyle(fontSize: 15, height: 1.5),
-                    ),
-                  ],
-                ),
+              Text(
+                "We're dedicated to giving you the very best University branded products, with a range of clothing and merchandise available to shop all year round. We even offer an exclusive personalisation service!",
+                style: TextStyle(fontSize: 15, height: 1.5),
               ),
-            ),
+              SizedBox(height: 12),
 
-            // Footer
-            Container(
-              width: double.infinity,
-              color: Colors.grey.shade50,
-              padding: const EdgeInsets.all(24),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1000),
-                child: LayoutBuilder(builder: (ctx, constraints) {
-                  final isWide = constraints.maxWidth >= 600;
-
-                  final left = _footerSection('Opening Hours', [
-                    const Text('(Term Time)', style: TextStyle(color: Colors.grey)),
-                    const Text('Mon–Fri 9am – 4pm', style: TextStyle(color: Colors.grey)),
-                    const Text('(Outside Term Time) Mon–Fri 9am – 3pm',
-                        style: TextStyle(color: Colors.grey)),
-                    const Text('Purchase online 24/7', style: TextStyle(color: Colors.grey)),
-                  ]);
-
-                  final center = _footerSection('Help and Info', [
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(ctx, '/search'),
-                      style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
-                        foregroundColor: WidgetStateProperty.resolveWith((states) {
-                          if (states.contains(WidgetState.hovered) ||
-                              states.contains(WidgetState.pressed)) {
-                            return Colors.black87;
-                          }
-                          return Colors.grey;
-                        }),
-                        alignment: Alignment.centerLeft,
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Search', style: TextStyle(fontSize: 14)),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: _placeholder,
-                      style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
-                        foregroundColor: WidgetStateProperty.resolveWith((states) {
-                          if (states.contains(WidgetState.hovered) ||
-                              states.contains(WidgetState.pressed)) {
-                            return Colors.black87;
-                          }
-                          return Colors.grey;
-                        }),
-                        alignment: Alignment.centerLeft,
-                      ),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Terms & Conditions of Sale', style: TextStyle(fontSize: 14)),
-                      ),
-                    ),
-                  ]);
-
-                  final right = _footerSection('Latest Offers', [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              hintText: 'Enter your email',
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                              border: OutlineInputBorder(),
-                            ),
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        ElevatedButton(
-                          onPressed: _placeholder, // no confirmation shown
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4d2963),
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          ),
-                          child: const Text('Subscribe', style: TextStyle(fontSize: 14)),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Row(
-                      children: [
-                        Icon(Icons.email, size: 16, color: Colors.grey),
-                        SizedBox(width: 8),
-                        Text('shop@upsu.net', style: TextStyle(color: Colors.grey)),
-                      ],
-                    ),
-                  ]);
-
-                  if (isWide) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(child: left),
-                        Expanded(child: center),
-                        Expanded(child: right),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        left,
-                        const SizedBox(height: 16),
-                        center,
-                        const SizedBox(height: 16),
-                        right,
-                      ],
-                    );
-                  }
-                }),
+              Text(
+                'All online purchases are available for delivery or in‑store collection!',
+                style: TextStyle(fontSize: 15, height: 1.5),
               ),
-            ),
-          ],
+              SizedBox(height: 12),
+
+              Text(
+                'We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please contact us at hello@upsu.net.',
+                style: TextStyle(fontSize: 15, height: 1.5),
+              ),
+              SizedBox(height: 18),
+
+              Text(
+                'Happy shopping!\n\nThe Union Shop & Reception Team',
+                style: TextStyle(fontSize: 15, height: 1.5),
+              ),
+            ],
+          ),
         ),
       ),
     );

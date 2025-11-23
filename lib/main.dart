@@ -3,6 +3,7 @@ import 'package:union_shop/product_page.dart';
 import 'package:union_shop/search_page.dart';
 import 'package:union_shop/about_us_page.dart';
 import 'package:union_shop/sign_in_page.dart';
+import 'package:union_shop/collections_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -25,10 +26,11 @@ class UnionShopApp extends StatelessWidget {
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
       routes: {
-        '/product': (context) => const ProductPage(),
-        '/about': (context) => const AboutUsPage(),
-        '/signin': (context) => const SignInPage(),
-        '/search': (context) => const SearchPage(),
+        '/product': (context) => ProductPage(),
+        '/about': (context) => AboutUsPage(),
+        '/signin': (context) => SignInPage(),
+        '/collections': (context) => CollectionsPage(),
+        '/search': (context) => SearchPage(),
       },
     );
   }
@@ -111,14 +113,11 @@ class HomeScreen extends StatelessWidget {
                                 return TextButton(
                                   onPressed: placeholderCallbackForButtons,
                                   style: ButtonStyle(
-                                    padding:
-                                        WidgetStateProperty.all(EdgeInsets.zero),
-                                    overlayColor: WidgetStateProperty.all(
-                                        Colors.transparent),
-                                    foregroundColor:
-                                        WidgetStateProperty.resolveWith((states) {
-                                      if (states.contains(WidgetState.hovered) ||
-                                          states.contains(WidgetState.pressed)) {
+                                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                    foregroundColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.hovered) ||
+                                          states.contains(MaterialState.pressed)) {
                                         return Colors.black87;
                                       }
                                       return Colors.grey;
@@ -146,10 +145,10 @@ class HomeScreen extends StatelessWidget {
                                       TextButton(
                                         onPressed: () => Navigator.pushNamed(innerContext, '/about'),
                                         style: ButtonStyle(
-                                          padding: WidgetStateProperty.all(EdgeInsets.zero),
-                                          overlayColor: WidgetStateProperty.all(Colors.transparent),
-                                          foregroundColor: WidgetStateProperty.resolveWith((states) {
-                                            if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+                                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                                          overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                          foregroundColor: MaterialStateProperty.resolveWith((states) {
+                                            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
                                               return Colors.black87;
                                             }
                                             return Colors.grey;
@@ -255,7 +254,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
+                          color: Colors.black.withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -289,7 +288,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 32),
                         ElevatedButton(
-                          onPressed: placeholderCallbackForButtons,
+                          onPressed: () => Navigator.pushNamed(context, '/collections'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF4d2963),
                             foregroundColor: Colors.white,
@@ -298,7 +297,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'BROWSE PRODUCTS',
+                            'BROWSE COLLECTIONS',
                             style: TextStyle(fontSize: 14, letterSpacing: 1),
                           ),
                         ),
@@ -571,11 +570,11 @@ class HomeScreen extends StatelessWidget {
                     TextButton(
                       onPressed: () => Navigator.pushNamed(context, '/search'),
                       style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
-                        foregroundColor: WidgetStateProperty.resolveWith((states) {
-                          if (states.contains(WidgetState.hovered) ||
-                              states.contains(WidgetState.pressed)) {
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        foregroundColor: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.hovered) ||
+                              states.contains(MaterialState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
@@ -591,11 +590,11 @@ class HomeScreen extends StatelessWidget {
                     TextButton(
                       onPressed: placeholderCallbackForButtons,
                       style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
-                        foregroundColor: WidgetStateProperty.resolveWith((states) {
-                          if (states.contains(WidgetState.hovered) ||
-                              states.contains(WidgetState.pressed)) {
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        foregroundColor: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.hovered) ||
+                              states.contains(MaterialState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
