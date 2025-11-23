@@ -7,7 +7,7 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _placeholder() {}
+    void placeholder() {}
     return Container(
       color: Colors.white,
       child: Column(
@@ -44,10 +44,10 @@ class HeaderWidget extends StatelessWidget {
                       return TextButton(
                         onPressed: onTap,
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                          foregroundColor: MaterialStateProperty.resolveWith((states) {
-                            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                          padding: WidgetStateProperty.all(EdgeInsets.zero),
+                          overlayColor: WidgetStateProperty.all(Colors.transparent),
+                          foregroundColor: WidgetStateProperty.resolveWith((states) {
+                            if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                               return Colors.black87;
                             }
                             return Colors.grey;
@@ -64,11 +64,11 @@ class HeaderWidget extends StatelessWidget {
                           children: [
                             navLink('Home', () => Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false)),
                             const SizedBox(width: 12),
-                            navLink('Shop', _placeholder),
+                            navLink('Shop', placeholder),
                             const SizedBox(width: 12),
                             navLink('About', () => Navigator.pushNamed(context, '/about')),
                             const SizedBox(width: 12),
-                            navLink('UPSU.net', _placeholder),
+                            navLink('UPSU.net', placeholder),
                           ],
                         ),
                       );
@@ -76,7 +76,7 @@ class HeaderWidget extends StatelessWidget {
                       return Center(
                         child: IconButton(
                           icon: const Icon(Icons.menu, size: 20, color: Colors.grey),
-                          onPressed: _placeholder,
+                          onPressed: placeholder,
                         ),
                       );
                     }
@@ -151,14 +151,14 @@ class _FooterWidgetState extends State<FooterWidget> {
           TextButton(
             onPressed: () => Navigator.pushNamed(context, '/search'),
             style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.zero),
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              padding: WidgetStateProperty.all(EdgeInsets.zero),
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
             ),
             child: const Align(alignment: Alignment.centerLeft, child: Text('Search', style: TextStyle(color: Colors.grey))),
           ),
           TextButton(
             onPressed: () {},
-            style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero), overlayColor: MaterialStateProperty.all(Colors.transparent)),
+            style: ButtonStyle(padding: WidgetStateProperty.all(EdgeInsets.zero), overlayColor: WidgetStateProperty.all(Colors.transparent)),
             child: const Align(alignment: Alignment.centerLeft, child: Text('Terms & Conditions of Sale', style: TextStyle(color: Colors.grey))),
           ),
         ]);
