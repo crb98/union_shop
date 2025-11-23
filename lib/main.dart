@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
-import 'package:union_shop/search_page.dart';
 import 'package:union_shop/about_us_page.dart';
 import 'package:union_shop/sign_in_page.dart';
 import 'package:union_shop/collections_page.dart';
@@ -30,7 +29,6 @@ class UnionShopApp extends StatelessWidget {
         '/about': (context) => AboutUsPage(),
         '/signin': (context) => SignInPage(),
         '/collections': (context) => CollectionsPage(),
-        '/search': (context) => SearchPage(),
       },
     );
   }
@@ -113,11 +111,11 @@ class HomeScreen extends StatelessWidget {
                                 return TextButton(
                                   onPressed: placeholderCallbackForButtons,
                                   style: ButtonStyle(
-                                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                                    foregroundColor: MaterialStateProperty.resolveWith((states) {
-                                      if (states.contains(MaterialState.hovered) ||
-                                          states.contains(MaterialState.pressed)) {
+                                    padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                                    foregroundColor: WidgetStateProperty.resolveWith((states) {
+                                      if (states.contains(WidgetState.hovered) ||
+                                          states.contains(WidgetState.pressed)) {
                                         return Colors.black87;
                                       }
                                       return Colors.grey;
@@ -145,10 +143,10 @@ class HomeScreen extends StatelessWidget {
                                       TextButton(
                                         onPressed: () => Navigator.pushNamed(innerContext, '/about'),
                                         style: ButtonStyle(
-                                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                                          foregroundColor: MaterialStateProperty.resolveWith((states) {
-                                            if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+                                          padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                          overlayColor: WidgetStateProperty.all(Colors.transparent),
+                                          foregroundColor: WidgetStateProperty.resolveWith((states) {
+                                            if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
                                               return Colors.black87;
                                             }
                                             return Colors.grey;
@@ -253,8 +251,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -568,13 +566,13 @@ class HomeScreen extends StatelessWidget {
 
                   final center = section('Help and Info', [
                     TextButton(
-                      onPressed: () => Navigator.pushNamed(context, '/search'),
+                      onPressed: placeholderCallbackForButtons,
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        foregroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.hovered) ||
-                              states.contains(MaterialState.pressed)) {
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        foregroundColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.hovered) ||
+                              states.contains(WidgetState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
@@ -590,11 +588,11 @@ class HomeScreen extends StatelessWidget {
                     TextButton(
                       onPressed: placeholderCallbackForButtons,
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        overlayColor: MaterialStateProperty.all(Colors.transparent),
-                        foregroundColor: MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.hovered) ||
-                              states.contains(MaterialState.pressed)) {
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        foregroundColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.hovered) ||
+                              states.contains(WidgetState.pressed)) {
                             return Colors.black87;
                           }
                           return Colors.grey;
@@ -604,7 +602,7 @@ class HomeScreen extends StatelessWidget {
                       child: const Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Terms & Conditions of Sale Policy',
-                            style: TextStyle(fontSize: 14)),
+                            style: TextStyle(color: Colors.grey, fontSize: 14)),
                       ),
                     ),
                   ]);
