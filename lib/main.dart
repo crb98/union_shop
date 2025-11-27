@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/product_page.dart';
+import 'package:union_shop/dummy_product_page.dart';
 import 'package:union_shop/about_us_page.dart';
 import 'package:union_shop/sign_in_page.dart';
 import 'package:union_shop/collections_page.dart';
@@ -26,7 +26,7 @@ class UnionShopApp extends StatelessWidget {
       // When navigating to '/product', build and return the ProductPage
       // In your browser, try this link: http://localhost:49856/#/product
       routes: {
-        '/product': (context) => ProductPage(),
+        '/product': (context) => const DummyProductPage(),
         '/about': (context) => AboutUsPage(),
         '/signin': (context) => SignInPage(),
         '/collections': (context) => CollectionsPage(),

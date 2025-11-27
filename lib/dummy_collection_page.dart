@@ -112,7 +112,7 @@ class _DummyCollectionPageState extends State<DummyCollectionPage> {
 
               const SizedBox(height: 16),
 
-              // 3 x 4 non-interactive grid of square tiles
+              // 3 x 4 non-interactive grid of square tiles (first item links to product page)
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -120,8 +120,10 @@ class _DummyCollectionPageState extends State<DummyCollectionPage> {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
                 childAspectRatio: 1,
-                children: products.map((prod) {
-                  return Container(
+                children: List.generate(products.length, (i) {
+                  final prod = products[i];
+
+                  Widget tile = Container(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       border: Border.all(color: Colors.grey.shade300),
@@ -155,7 +157,18 @@ class _DummyCollectionPageState extends State<DummyCollectionPage> {
                       ),
                     ),
                   );
-                }).toList(),
+
+                  // Only the first item (index 0) navigates to the product page.
+                  if (i == 0) {
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, '/product'),
+                      child: tile,
+                    );
+                  }
+
+                  // other tiles remain non-interactive
+                  return tile;
+                }),
               ),
             ],
           ),
