@@ -130,7 +130,7 @@ class _DummyProductPageState extends State<DummyProductPage> {
                     // Colour
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: selectedColour,
+                        initialValue: selectedColour,
                         decoration: const InputDecoration(
                           labelText: 'Colour',
                           isDense: true,
@@ -151,7 +151,7 @@ class _DummyProductPageState extends State<DummyProductPage> {
                     // Size
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: selectedSize,
+                        initialValue: selectedSize,
                         decoration: const InputDecoration(
                           labelText: 'Size',
                           isDense: true,
@@ -172,7 +172,7 @@ class _DummyProductPageState extends State<DummyProductPage> {
                     SizedBox(
                       width: 110,
                       child: DropdownButtonFormField<int>(
-                        value: quantity,
+                        initialValue: quantity,
                         decoration: const InputDecoration(
                           labelText: 'Qty',
                           isDense: true,
