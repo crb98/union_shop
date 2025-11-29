@@ -63,18 +63,22 @@ class HomeScreen extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: const AssetImage('assets/images/pexels-aden-ardenrich-181745-581339.jpg'),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.black.withAlpha((0.55 * 255).round()),
+                              BlendMode.darken,
+                            ),
+                          ),
                         ),
-                        fit: BoxFit.cover,
                       ),
-                    ),
-                    child: Container(
-                      decoration: const BoxDecoration(color: Colors.black),
-                    ),
+                    ],
                   ),
                 ),
                 Positioned(
