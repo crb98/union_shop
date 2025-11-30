@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/site_shell.dart';
+import 'package:union_shop/product_page.dart';
 
 class SaleCollectionPage extends StatefulWidget {
   const SaleCollectionPage({super.key, this.title = 'Sale'});
@@ -11,20 +12,82 @@ class SaleCollectionPage extends StatefulWidget {
 }
 
 class _SaleCollectionPageState extends State<SaleCollectionPage> {
-  // example sale products (title + original price + sale price)
+  // example sale products (title + original price + sale price + image)
+  // use the same product set as collection_page.dart (sale column left empty here;
+  // add sale prices where you want items to appear discounted)
   final List<Map<String, String>> products = const [
-    {'title': 'Portsmouth Hoodie', 'price': '£25.00', 'sale': '£18.00'},
-    {'title': 'University T‑Shirt', 'price': '£12.00', 'sale': '£8.00'},
-    {'title': 'Campus Mug', 'price': '£6.50', 'sale': '£4.50'},
-    {'title': 'Scarlet Scarf', 'price': '£9.00', 'sale': '£6.00'},
-    {'title': 'Keyring', 'price': '£4.00', 'sale': '£2.50'},
-    {'title': 'Notebook', 'price': '£5.00', 'sale': '£3.50'},
-    {'title': 'Portsmouth Cap', 'price': '£10.00', 'sale': '£7.00'},
-    {'title': 'Drawstring Bag', 'price': '£8.00', 'sale': '£5.50'},
-    {'title': 'Limited Tote', 'price': '£7.50', 'sale': '£5.00'},
-    {'title': 'Promo Badge Pack', 'price': '£3.00', 'sale': '£1.99'},
-    {'title': 'Varsity Jacket', 'price': '£48.00', 'sale': '£36.00'},
-    {'title': 'Grad Gown Hire', 'price': '£35.00', 'sale': '£25.00'},
+    {
+      'title': 'Portsmouth Hoodie',
+      'price': '£25.00',
+      'sale': '£18.00',
+      'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityHoodie_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'University T‑Shirt',
+      'price': '£12.00',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/UniversityTshirt_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Campus Mug',
+      'price': '£6.50',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/CampusMug_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Scarlet Scarf',
+      'price': '£9.00',
+      'sale': '£6.50',
+      'image': 'https://shop.upsu.net/cdn/shop/files/ScarletScarf_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Grad Gown Hire',
+      'price': '£35.00',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/GradGown_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Keyring',
+      'price': '£4.00',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/Keyring_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Varsity Jacket',
+      'price': '£48.00',
+      'sale': '£36.00',
+      'image': 'https://shop.upsu.net/cdn/shop/files/VarsityJacket_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Notebook',
+      'price': '£5.00',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/Notebook_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Portsmouth Cap',
+      'price': '£10.00',
+      'sale': '£7.00',
+      'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000'
+    },
+    {
+      'title': 'Drawstring Bag',
+      'price': '£8.00',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/DrawstringBag_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Limited Tote',
+      'price': '£7.50',
+      'sale': '',
+      'image': 'https://shop.upsu.net/cdn/shop/files/LimitedTote_1024x1024@2x.jpg'
+    },
+    {
+      'title': 'Promo Badge Pack',
+      'price': '£3.00',
+      'sale': '£1.99',
+      'image': 'https://shop.upsu.net/cdn/shop/files/BadgePack_1024x1024@2x.jpg'
+    },
   ];
 
   final List<String> filters = [
@@ -105,77 +168,116 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
 
               const SizedBox(height: 16),
 
-              // 3 x 4 grid - non-interactive tiles showing title + sale price (with original struck through)
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 1,
-                children: products.map((prod) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade50,
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              prod['title'] ?? '',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            if ((prod['sale'] ?? '').isNotEmpty)
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    prod['sale'] ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF0A72D8),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    prod['price'] ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black54,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            else
-                              Text(
-                                prod['price'] ?? '',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                          ],
-                        ),
+              // PRODUCTS SECTION — same visual layout as main.dart / collection_page.dart
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount:
+                            MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                        crossAxisSpacing: 24,
+                        mainAxisSpacing: 48,
+                        // gives vertical room for image + text like other pages
+                        childAspectRatio: 0.78,
+                        children: products.map((prod) {
+                          final title = prod['title'] ?? '';
+                          final price = prod['price'] ?? '';
+                          final sale = (prod['sale'] ?? '').isNotEmpty ? prod['sale']! : '';
+                          // show sale card (navigates to ProductPage)
+                          return SaleProductCard(
+                            title: title,
+                            price: price,
+                            salePrice: sale,
+                            imageUrl: prod['image'] ?? '',
+                          );
+                        }).toList(),
                       ),
-                    ),
-                  );
-                }).toList(),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// Reusable sale product card matching other pages' product layout.
+class SaleProductCard extends StatelessWidget {
+  final String title;
+  final String price;
+  final String salePrice;
+  final String imageUrl;
+
+  const SaleProductCard({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.salePrice,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ProductPage()),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // image area
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+                child: imageUrl.isNotEmpty
+                    ? Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, st) {
+                        return Container(
+                          color: Colors.grey.shade100,
+                          child: const Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
+                        );
+                      })
+                    : Container(color: Colors.grey.shade100),
+              ),
+            ),
+
+            // title + price / sale row
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 6),
+                  if (salePrice.isNotEmpty)
+                    Row(
+                      children: [
+                        Text(salePrice, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8))),
+                        const SizedBox(width: 8),
+                        Text(price, style: const TextStyle(fontSize: 12, color: Colors.black54, decoration: TextDecoration.lineThrough)),
+                      ],
+                    )
+                  else
+                    Text(price, style: const TextStyle(fontSize: 13, color: Colors.black54)),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

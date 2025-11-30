@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/site_shell.dart';
+import 'package:union_shop/product_page.dart';
 
 class CollectionPage extends StatefulWidget {
   final String title;
@@ -180,18 +181,23 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final String salePrice; // optional
 
   const ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    this.salePrice = '',
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/product'),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ProductPage()),
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -201,7 +207,6 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // use Expanded so the image fills available tile height and the text area keeps visible
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
@@ -219,24 +224,32 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
-
-            // title / price
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                  ),
+                  Text(title,
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 6),
-                  Text(
-                    price,
-                    style: const TextStyle(fontSize: 13, color: Colors.black54),
-                  ),
+                  if (salePrice.isNotEmpty)
+                    Row(
+                      children: [
+                        Text(
+                          salePrice,
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8)),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          price,
+                          style: const TextStyle(fontSize: 12, color: Colors.black54, decoration: TextDecoration.lineThrough),
+                        ),
+                      ],
+                    )
+                  else
+                    Text(price, style: const TextStyle(fontSize: 13, color: Colors.black54)),
                 ],
               ),
             ),

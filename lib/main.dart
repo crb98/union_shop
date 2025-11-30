@@ -357,12 +357,14 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final String salePrice; // optional
 
   const ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    this.salePrice = '',
   });
 
   @override
@@ -382,35 +384,50 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[300],
-                    child: const Center(
-                      child: Icon(Icons.image_not_supported, color: Colors.grey),
-                    ),
-                  );
-                },
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(Icons.image_not_supported, color: Colors.grey),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 4),
-                Text(
-                  title,
-                  style: const TextStyle(fontSize: 14, color: Colors.black),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  price,
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis),
+                  const SizedBox(height: 6),
+                  if (salePrice.isNotEmpty)
+                    Row(
+                      children: [
+                        Text(
+                          salePrice,
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8)),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          price,
+                          style: const TextStyle(fontSize: 12, color: Colors.black54, decoration: TextDecoration.lineThrough),
+                        ),
+                      ],
+                    )
+                  else
+                    Text(price, style: const TextStyle(fontSize: 13, color: Colors.black54)),
+                ],
+              ),
             ),
           ],
         ),
