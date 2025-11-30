@@ -69,8 +69,6 @@ class HeaderWidget extends StatelessWidget {
                             navLink('About', () => Navigator.pushNamed(innerCtx, '/about')),
                             const SizedBox(width: 12),
                             navLink('SALE!', () => Navigator.pushNamed(innerCtx, '/sale')),
-                            const SizedBox(width: 12),
-                            navLink('UPSU.net', placeholder),
                           ],
                         ),
                       );
