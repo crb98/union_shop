@@ -112,94 +112,135 @@ class _CollectionPageState extends State<CollectionPage> {
 
               const SizedBox(height: 16),
 
-              // 3 x 4 product grid — tiles show image placeholder, title, price and available sizes
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.75,
-                children: List.generate(products.length, (i) {
-                  final prod = products[i];
-
-                  Widget tileContent = Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // image placeholder / square area
-                        AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-                            ),
-                            child: const Center(
-                              child: Icon(Icons.image, size: 36, color: Colors.grey),
-                            ),
-                          ),
+              // PRODUCTS SECTION (same layout as main.dart)
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'PRODUCTS SECTION',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          letterSpacing: 1,
                         ),
-
-                        // title / price / sizes
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                prod['title'] ?? '',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                prod['price'] ?? '',
-                                style: const TextStyle(fontSize: 13, color: Colors.black54),
-                              ),
-                              const SizedBox(height: 8),
-                              // small size chips (UI only)
-                              Wrap(
-                                spacing: 6,
-                                runSpacing: 6,
-                                children: ['S', 'M', 'L', 'XL'].map((s) {
-                                  return Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade100,
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(color: Colors.grey.shade300),
-                                    ),
-                                    child: Text(s, style: const TextStyle(fontSize: 12)),
-                                  );
-                                }).toList(),
-                              ),
-                            ],
+                      ),
+                      const SizedBox(height: 48),
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount:
+                            MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                        crossAxisSpacing: 24,
+                        mainAxisSpacing: 48,
+                        // <1.0 gives extra vertical room for title/price under the square image
+                        childAspectRatio: 0.78,
+                        children: [
+                          ProductCard(
+                            title: 'Placeholder Product 1',
+                            price: '£10.00',
+                            imageUrl:
+                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-
-                  if (i == 0) {
-                    // first tile navigates to product route (dummy product)
-                    return GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/product'),
-                      child: tileContent,
-                    );
-                  }
-
-                  return tileContent;
-                }),
+                          ProductCard(
+                            title: 'Placeholder Product 2',
+                            price: '£15.00',
+                            imageUrl:
+                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          ),
+                          ProductCard(
+                            title: 'Placeholder Product 3',
+                            price: '£20.00',
+                            imageUrl:
+                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          ),
+                          ProductCard(
+                            title: 'Placeholder Product 4',
+                            price: '£25.00',
+                            imageUrl:
+                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProductCard extends StatelessWidget {
+  final String title;
+  final String price;
+  final String imageUrl;
+
+  const ProductCard({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/product'),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // use Expanded so the image fills available tile height and the text area keeps visible
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(Icons.image_not_supported, color: Colors.grey),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            // title / price
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    price,
+                    style: const TextStyle(fontSize: 13, color: Colors.black54),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
