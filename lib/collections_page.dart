@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/site_shell.dart';
-import 'package:union_shop/dummy_collection_page.dart';
+import 'package:union_shop/collection_page.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});

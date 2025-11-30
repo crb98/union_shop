@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:union_shop/dummy_collection_page.dart';
+import 'package:union_shop/collection_page.dart';
 
 void main() {
   testWidgets('DummyCollectionPage shows title, filters and product tiles', (tester) async {
