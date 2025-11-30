@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/site_shell.dart';
 
-class DummyCollectionPage extends StatefulWidget {
+class CollectionPage extends StatefulWidget {
   final String title;
-  const DummyCollectionPage({super.key, required this.title});
+  const CollectionPage({super.key, required this.title});
 
   @override
-  State<DummyCollectionPage> createState() => _DummyCollectionPageState();
+  State<CollectionPage> createState() => _CollectionPageState();
 }
 
-class _DummyCollectionPageState extends State<DummyCollectionPage> {
+class _CollectionPageState extends State<CollectionPage> {
   // replace simple labels with product-like entries (title + price)
   final List<Map<String, String>> products = const [
     {'title': 'Portsmouth Hoodie', 'price': '£25.00'},
@@ -112,62 +112,90 @@ class _DummyCollectionPageState extends State<DummyCollectionPage> {
 
               const SizedBox(height: 16),
 
-              // 3 x 4 non-interactive grid of square tiles (first item links to product page)
+              // 3 x 4 product grid — tiles show image placeholder, title, price and available sizes
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 3,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                childAspectRatio: 1,
+                childAspectRatio: 0.75,
                 children: List.generate(products.length, (i) {
                   final prod = products[i];
 
-                  Widget tile = Container(
+                  Widget tileContent = Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Colors.white,
                       border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              prod['title'] ?? '',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // image placeholder / square area
+                        AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              prod['price'] ?? '',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black54,
-                              ),
+                            child: const Center(
+                              child: Icon(Icons.image, size: 36, color: Colors.grey),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+
+                        // title / price / sizes
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                prod['title'] ?? '',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                prod['price'] ?? '',
+                                style: const TextStyle(fontSize: 13, color: Colors.black54),
+                              ),
+                              const SizedBox(height: 8),
+                              // small size chips (UI only)
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                children: ['S', 'M', 'L', 'XL'].map((s) {
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade100,
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: Colors.grey.shade300),
+                                    ),
+                                    child: Text(s, style: const TextStyle(fontSize: 12)),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   );
 
-                  // Only the first item (index 0) navigates to the product page.
                   if (i == 0) {
+                    // first tile navigates to product route (dummy product)
                     return GestureDetector(
                       onTap: () => Navigator.pushNamed(context, '/product'),
-                      child: tile,
+                      child: tileContent,
                     );
                   }
 
-                  // other tiles remain non-interactive
-                  return tile;
+                  return tileContent;
                 }),
               ),
             ],

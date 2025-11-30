@@ -4,7 +4,7 @@ import 'package:union_shop/collection_page.dart';
 
 void main() {
   testWidgets('DummyCollectionPage shows title, filters and product tiles', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: DummyCollectionPage(title: 'Test Collection')));
+    await tester.pumpWidget(const MaterialApp(home: CollectionPage(title: 'Test Collection')));
     await tester.pumpAndSettle();
 
     expect(find.text('Test Collection'), findsOneWidget);
