@@ -4,12 +4,13 @@ A simple Flutter storefront app created as coursework for M32605 Course name
 User Experience Design And Implementation. The app demonstrates collections and product listing UI patterns, navigation between pages, product tiles with optional sale pricing, and a product detail page. Images are loaded from network URLs; pages use a shared AppShell for consistent layout.
 
 Key features
+
 - Collections grid with image tiles
 - Collection detail pages with a products section
-- Product tiles with image, title, price and optional sale price 
+- Product tiles with image, title, price and optional sale price
 - Product detail page with non-functional drop-down menus
 - Simple sign-in and about pages (UI placeholders)
-- Responsive layout 
+- Responsive layout  
 
 ---
 
@@ -23,6 +24,7 @@ Key features
 - Android/iOS simulator or a physical device (or use `flutter run -d windows` for desktop if enabled)
 
 Verify Flutter setup:
+
 ```bash
 flutter --version
 flutter doctor
@@ -85,7 +87,7 @@ Images used are network URLs inside the code; adjust them in the product/collect
 
 - Home (main.dart)
   - Shows a Products section matching the collection page sizing.
-  - Product tiles are tappable and navigate to product detail.
+  - Product tiles navigate to product detail when tapped.
 - Collections (collections_page.dart)
   - Grid of collection tiles. Each tile shows an image with centered title overlay and navigates to a collection page.
 - Collection page (collection_page.dart)
@@ -132,4 +134,3 @@ There are no automated tests included by default in this coursework project.
 
 Created by Connie Busby
 Contact at <up2267061@myport.ac.uk>
-
