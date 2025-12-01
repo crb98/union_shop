@@ -7,13 +7,6 @@ class CollectionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final collections = <Map<String, String>>[
-      {'title': 'Collection 1', 'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282'},
-      {'title': 'Collection 2', 'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561'},
-      {'title': 'Collection 3', 'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet2_1024x1024@2x.jpg?v=1752230283'},
-      {'title': 'Collection 4', 'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000'},
-    ];
-
     return AppShell(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -29,7 +22,7 @@ class CollectionsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Collections Grid: each tile shows only image + collection name
+                // Collections Grid
                 Container(
                   color: Colors.white,
                   child: Padding(
@@ -41,20 +34,63 @@ class CollectionsPage extends StatelessWidget {
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       childAspectRatio: 1.0,
-                      children: collections.map((item) {
-                        final title = item['title']!;
-                        final imageUrl = item['image']!;
-                        return Material(
+                      children: [
+                        Material(
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: () => Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (_) => CollectionPage(title: title)),
+                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 1')),
                             ),
-                            child: _collectionTile(title, imageUrl),
+                            child: _collectionTile(
+                              'Collection 1',
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                            ),
                           ),
-                        );
-                      }).toList(),
+                        ),
+
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 2')),
+                            ),
+                            child: _collectionTile(
+                              'Collection 2',
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                            ),
+                          ),
+                        ),
+
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 3')),
+                            ),
+                            child: _collectionTile(
+                              'Collection 3',
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet2_1024x1024@2x.jpg?v=1752230283',
+                            ),
+                          ),
+                        ),
+
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 4')),
+                            ),
+                            child: _collectionTile(
+                              'Collection 4',
+                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -138,30 +138,26 @@ class _CollectionPageState extends State<CollectionPage> {
                         mainAxisSpacing: 48,
                         // <1.0 gives extra vertical room for title/price under the square image
                         childAspectRatio: 0.78,
-                        children: [
+                        children: const [
                           ProductCard(
-                            title: 'Placeholder Product 1',
-                            price: '£10.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                          ProductCard(
-                            title: 'Placeholder Product 2',
-                            price: '£15.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                          ProductCard(
-                            title: 'Placeholder Product 3',
-                            price: '£20.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                          ProductCard(
-                            title: 'Placeholder Product 4',
+                            title: 'Portsmouth Hoodie',
                             price: '£25.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                            imageUrl: 'assets/images/hoodie.jpg',
+                          ),
+                          ProductCard(
+                            title: 'University T‑Shirt',
+                            price: '£12.00',
+                            imageUrl: 'assets/images/t-shirt.jpg',
+                          ),
+                          ProductCard(
+                            title: 'Campus Mug',
+                            price: '£6.50',
+                            imageUrl: 'assets/images/mug.jpg',
+                          ),
+                          ProductCard(
+                            title: 'Scarlet Scarf',
+                            price: '£9.00',
+                            imageUrl: 'assets/images/scarf.jpg',
                           ),
                         ],
                       ),
