@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: const AssetImage('assets/images/pexels-aden-ardenrich-181745-581339.jpg'),
+                            image: const AssetImage('assets/images/hero_Banner.jpg'),
                             fit: BoxFit.cover,
                             colorFilter: ColorFilter.mode(
                               Colors.black.withAlpha((0.55 * 255).round()),
@@ -159,29 +159,26 @@ class HomeScreen extends StatelessWidget {
                         childAspectRatio: 0.78,
                         children: const [
                           ProductCard(
-                            title: 'Placeholder Product 1',
-                            price: '£10.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                          ProductCard(
-                            title: 'Placeholder Product 2',
-                            price: '£15.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                          ProductCard(
-                            title: 'Placeholder Product 3',
-                            price: '£20.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                          ),
-                          ProductCard(
-                            title: 'Placeholder Product 4',
+                            title: 'Portsmouth Hoodie',
                             price: '£25.00',
-                            imageUrl:
-                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                            salePrice: '£18.00',
+                            imageUrl: 'assets/images/hoodie.jpg', // must match file name exactly
                           ),
+                          ProductCard(
+                            title: 'University T‑Shirt',
+                            price: '£12.00',
+                            imageUrl: 'assets/images/t-shirt.jpg',
+                          ),
+                          ProductCard(
+                            title: 'Campus Mug',
+                            price: '£6.50',
+                            imageUrl: 'assets/images/mug.jpg',
+                          ),
+                          ProductCard(
+                            title: 'Scarlet Scarf',
+                            price: '£9.00',
+                            imageUrl: 'assets/images/scarf.jpg',
+                          )
                         ],
                       ),
                     ],
@@ -369,6 +366,36 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget imageWidget;
+    if (imageUrl.startsWith('http')) {
+      imageWidget = Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Colors.grey[300],
+            child: const Center(
+              child: Icon(Icons.image_not_supported, color: Colors.grey),
+            ),
+          );
+        },
+      );
+    } else {
+      // treat as local asset path (e.g. 'assets/images/PortsmouthCityHoodie.jpg')
+      imageWidget = Image.asset(
+        imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Colors.grey[300],
+            child: const Center(
+              child: Icon(Icons.image_not_supported, color: Colors.grey),
+            ),
+          );
+        },
+      );
+    }
+
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -386,18 +413,7 @@ class ProductCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[300],
-                      child: const Center(
-                        child: Icon(Icons.image_not_supported, color: Colors.grey),
-                      ),
-                    );
-                  },
-                ),
+                child: imageWidget,
               ),
             ),
             Padding(
