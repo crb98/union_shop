@@ -11,22 +11,6 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
-  // replace simple labels with product-like entries (title + price)
-  final List<Map<String, String>> products = const [
-    {'title': 'Portsmouth Hoodie', 'price': '£25.00', 'sale': '£18.00', 'image': 'assets/images/hoodie.jpg'},
-    {'title': 'University T‑Shirt', 'price': '£12.00', 'sale': '', 'image': 'assets/images/university_tshirt.jpg'},
-    {'title': 'Campus Mug', 'price': '£6.50', 'sale': '', 'image': 'assets/images/campus_mug.jpg'},
-    {'title': 'Scarlet Scarf', 'price': '£9.00', 'sale': '£6.50', 'image': 'assets/images/scarlet_scarf.jpg'},
-    {'title': 'Grad Gown Hire', 'price': '£35.00', 'sale': '', 'image': 'assets/images/grad_gown.jpg'},
-    {'title': 'Keyring', 'price': '£4.00', 'sale': '', 'image': 'assets/images/keyring.jpg'},
-    {'title': 'Varsity Jacket', 'price': '£48.00', 'sale': '£36.00', 'image': 'assets/images/varsity_jacket.jpg'},
-    {'title': 'Notebook', 'price': '£5.00', 'sale': '', 'image': 'assets/images/notebook.jpg'},
-    {'title': 'Portsmouth Cap', 'price': '£10.00', 'sale': '£7.00', 'image': 'assets/images/cap.jpg'},
-    {'title': 'Drawstring Bag', 'price': '£8.00', 'sale': '', 'image': 'assets/images/drawstring_bag.jpg'},
-    {'title': 'Limited Tote', 'price': '£7.50', 'sale': '', 'image': 'assets/images/limited_tote.jpg'},
-    {'title': 'Promo Badge Pack', 'price': '£3.00', 'sale': '£1.99', 'image': 'assets/images/badge_pack.jpg'},
-  ];
-
   final List<String> filters = [
     'All products',
     'Clothing',
@@ -104,9 +88,8 @@ class _CollectionPageState extends State<CollectionPage> {
 
                     const Spacer(),
 
-                    // Product count on the right (hardcoded from items length)
-                    Text('${products.length} products',
-                        style: const TextStyle(color: Colors.black54)),
+                    // Product count (update when you change tiles)
+                    const Text('12 products', style: TextStyle(color: Colors.black54)),
                   ],
                 ),
               ),
