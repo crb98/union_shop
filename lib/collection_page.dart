@@ -89,7 +89,7 @@ class _CollectionPageState extends State<CollectionPage> {
                     const Spacer(),
 
                     // Product count (update when you change tiles)
-                    const Text('12 products', style: TextStyle(color: Colors.black54)),
+                    const Text('4 products', style: TextStyle(color: Colors.black54)),
                   ],
                 ),
               ),

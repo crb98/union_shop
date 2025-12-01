@@ -12,81 +12,30 @@ class SaleCollectionPage extends StatefulWidget {
 }
 
 class _SaleCollectionPageState extends State<SaleCollectionPage> {
-  // example sale products (title + original price + sale price + image)
-  // use the same product set as collection_page.dart (sale column left empty here;
-  // add sale prices where you want items to appear discounted)
   final List<Map<String, String>> products = const [
     {
       'title': 'Portsmouth Hoodie',
       'price': '£25.00',
       'sale': '£18.00',
-      'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityHoodie_1024x1024@2x.jpg'
+      'image': 'assets/images/hoodie.jpg'
     },
     {
       'title': 'University T‑Shirt',
       'price': '£12.00',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/UniversityTshirt_1024x1024@2x.jpg'
+      'sale': '£8.00',
+      'image': 'assets/images/t-shirt.jpg'
     },
     {
       'title': 'Campus Mug',
       'price': '£6.50',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/CampusMug_1024x1024@2x.jpg'
+      'sale': '£4.50',
+      'image': 'assets/images/mug.jpg'
     },
     {
       'title': 'Scarlet Scarf',
       'price': '£9.00',
       'sale': '£6.50',
-      'image': 'https://shop.upsu.net/cdn/shop/files/ScarletScarf_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Grad Gown Hire',
-      'price': '£35.00',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/GradGown_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Keyring',
-      'price': '£4.00',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/Keyring_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Varsity Jacket',
-      'price': '£48.00',
-      'sale': '£36.00',
-      'image': 'https://shop.upsu.net/cdn/shop/files/VarsityJacket_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Notebook',
-      'price': '£5.00',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/Notebook_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Portsmouth Cap',
-      'price': '£10.00',
-      'sale': '£7.00',
-      'image': 'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000'
-    },
-    {
-      'title': 'Drawstring Bag',
-      'price': '£8.00',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/DrawstringBag_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Limited Tote',
-      'price': '£7.50',
-      'sale': '',
-      'image': 'https://shop.upsu.net/cdn/shop/files/LimitedTote_1024x1024@2x.jpg'
-    },
-    {
-      'title': 'Promo Badge Pack',
-      'price': '£3.00',
-      'sale': '£1.99',
-      'image': 'https://shop.upsu.net/cdn/shop/files/BadgePack_1024x1024@2x.jpg'
+      'image': 'assets/images/scarf.jpg'
     },
   ];
 
@@ -241,17 +190,24 @@ class SaleProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // image area
+            // image area (supports local assets or network URLs)
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
                 child: imageUrl.isNotEmpty
-                    ? Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, st) {
-                        return Container(
-                          color: Colors.grey.shade100,
-                          child: const Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
-                        );
-                      })
+                    ? (imageUrl.startsWith('http')
+                        ? Image.network(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, st) {
+                            return Container(
+                              color: Colors.grey.shade100,
+                              child: const Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
+                            );
+                          })
+                        : Image.asset(imageUrl, fit: BoxFit.cover, errorBuilder: (c, e, st) {
+                            return Container(
+                              color: Colors.grey.shade100,
+                              child: const Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
+                            );
+                          }))
                     : Container(color: Colors.grey.shade100),
               ),
             ),
