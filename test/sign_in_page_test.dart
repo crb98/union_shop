@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:union_shop/sign_in_page.dart';
+import 'package:union_shop/views/sign_in_page.dart';
 
 void main() {
   testWidgets('SignInPage shows title, email field and continue button', (tester) async {

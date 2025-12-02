@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/product_page.dart';
-import 'package:union_shop/about_us_page.dart';
-import 'package:union_shop/sign_in_page.dart';
-import 'package:union_shop/collections_page.dart';
-import 'package:union_shop/sale_collection_page.dart';
+import 'package:union_shop/views/product_page.dart';
+import 'package:union_shop/views/about_us_page.dart';
+import 'package:union_shop/views/sign_in_page.dart';
+import 'package:union_shop/views/collections_page.dart';
+import 'package:union_shop/views/sale_collection_page.dart';
 import 'package:union_shop/widgets/site_shell.dart';
+import 'package:union_shop/models/product.dart';
+import 'package:union_shop/repositories/product_repository.dart';
+import 'package:union_shop/widgets/product_card.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -25,7 +28,7 @@ class UnionShopApp extends StatelessWidget {
       // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
       routes: {
-        '/product': (context) => const ProductPage(),
+        // ProductPage requires a Product; navigate to it using MaterialPageRoute(product: ...)
         '/about': (context) => const AboutUsPage(),
         '/signin': (context) => const SignInPage(),
         '/collections': (context) => const CollectionsPage(),
@@ -134,7 +137,7 @@ class HomeScreen extends StatelessWidget {
             color: Colors.white,
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 900), // match collection_page
+                constraints: const BoxConstraints(maxWidth: 900),
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: Column(
@@ -148,39 +151,21 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 48),
-                      GridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount:
-                            MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                        crossAxisSpacing: 24,
-                        mainAxisSpacing: 48,
-                        // same aspect ratio used in collection_page.dart
-                        childAspectRatio: 0.78,
-                        children: const [
-                          ProductCard(
-                            title: 'Portsmouth Hoodie',
-                            price: '£25.00',
-                            salePrice: '£18.00',
-                            imageUrl: 'assets/images/hoodie.jpg', // must match file name exactly
-                          ),
-                          ProductCard(
-                            title: 'University T‑Shirt',
-                            price: '£12.00',
-                            imageUrl: 'assets/images/t-shirt.jpg',
-                          ),
-                          ProductCard(
-                            title: 'Campus Mug',
-                            price: '£6.50',
-                            imageUrl: 'assets/images/mug.jpg',
-                          ),
-                          ProductCard(
-                            title: 'Scarlet Scarf',
-                            price: '£9.00',
-                            imageUrl: 'assets/images/scarf.jpg',
-                          )
-                        ],
-                      ),
+                      Builder(builder: (context) {
+                        final repo = ProductRepository();
+                        final products = repo.fetchAll();
+                        return GridView.count(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                          crossAxisSpacing: 24,
+                          mainAxisSpacing: 48,
+                          // same aspect ratio used in collection_page.dart
+                          childAspectRatio: 0.78,
+                          children: products.map((p) => ProductCard(product: p)).toList(),
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -345,108 +330,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
-  final String salePrice; // optional
-
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    this.salePrice = '',
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Widget imageWidget;
-    if (imageUrl.startsWith('http')) {
-      imageWidget = Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            color: Colors.grey[300],
-            child: const Center(
-              child: Icon(Icons.image_not_supported, color: Colors.grey),
-            ),
-          );
-        },
-      );
-    } else {
-      // treat as local asset path (e.g. 'assets/images/PortsmouthCityHoodie.jpg')
-      imageWidget = Image.asset(
-        imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            color: Colors.grey[300],
-            child: const Center(
-              child: Icon(Icons.image_not_supported, color: Colors.grey),
-            ),
-          );
-        },
-      );
-    }
-
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const ProductPage()),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-                child: imageWidget,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis),
-                  const SizedBox(height: 6),
-                  if (salePrice.isNotEmpty)
-                    Row(
-                      children: [
-                        Text(
-                          salePrice,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8)),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          price,
-                          style: const TextStyle(fontSize: 12, color: Colors.black54, decoration: TextDecoration.lineThrough),
-                        ),
-                      ],
-                    )
-                  else
-                    Text(price, style: const TextStyle(fontSize: 13, color: Colors.black54)),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
