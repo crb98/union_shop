@@ -64,7 +64,7 @@ class HeaderWidget extends StatelessWidget {
                           children: [
                             navLink('Home', () => Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false)),
                             const SizedBox(width: 12),
-                            navLink('Shop', placeholder),
+                            navLink('Shop', () => Navigator.pushNamed(innerCtx, '/collections')),
                             const SizedBox(width: 12),
                             navLink('About', () => Navigator.pushNamed(innerCtx, '/about')),
                             const SizedBox(width: 12),
