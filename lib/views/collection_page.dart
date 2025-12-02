@@ -58,33 +58,43 @@ class _CollectionPageState extends State<CollectionPage> {
               ),
               const SizedBox(height: 16),
 
-              // Filter / Sort bar (UI only)
+              // Filter / Sort row — use Wrap to avoid horizontal overflow in narrow viewports
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 8,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    DropdownButton<String>(
-                      value: selectedFilter,
-                      items: filters
-                          .map((f) => DropdownMenuItem(value: f, child: Text(f)))
-                          .toList(),
-                      onChanged: (v) {
-                        if (v == null) return;
-                        setState(() => selectedFilter = v);
-                      },
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width > 600 ? 220 : 140,
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: selectedFilter,
+                        items: filters
+                            .map((f) => DropdownMenuItem(value: f, child: Text(f)))
+                            .toList(),
+                        onChanged: (v) {
+                          if (v == null) return;
+                          setState(() => selectedFilter = v);
+                        },
+                      ),
                     ),
-                    const SizedBox(width: 12),
-                    DropdownButton<String>(
-                      value: selectedSort,
-                      items: sorts
-                          .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                          .toList(),
-                      onChanged: (v) {
-                        if (v == null) return;
-                        setState(() => selectedSort = v);
-                      },
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width > 600 ? 220 : 140,
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: selectedSort,
+                        items: sorts
+                            .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                            .toList(),
+                        onChanged: (v) {
+                          if (v == null) return;
+                          setState(() => selectedSort = v);
+                        },
+                      ),
                     ),
-                    const Spacer(),
+                    // product count sits after the controls; Wrap will move it to next line if needed
                     Text('${products.length} products', style: const TextStyle(color: Colors.black54)),
                   ],
                 ),

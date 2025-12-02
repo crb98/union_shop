@@ -22,10 +22,8 @@ class UnionShopApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
       home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
       initialRoute: '/',
       routes: {
-        // ProductPage requires a Product; navigate to it using MaterialPageRoute(product: ...)
         '/about': (context) => const AboutUsPage(),
         '/signin': (context) => const SignInPage(),
         '/collections': (context) => const CollectionsPage(),
@@ -46,12 +44,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
   }
 
   @override
   Widget build(BuildContext context) {
-    // use AppShell which already provides header and footer
     return AppShell(
       child: Column(
         children: [

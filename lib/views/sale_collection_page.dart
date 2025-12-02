@@ -59,33 +59,42 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
               ),
               const SizedBox(height: 16),
 
-              // Filter / Sort
+              // Filter / Sort — use Wrap to prevent overflow in tests / narrow screens
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 8,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    DropdownButton<String>(
-                      value: selectedFilter,
-                      items: filters
-                          .map((f) => DropdownMenuItem(value: f, child: Text(f)))
-                          .toList(),
-                      onChanged: (v) {
-                        if (v == null) return;
-                        setState(() => selectedFilter = v);
-                      },
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width > 600 ? 220 : 140,
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: selectedFilter,
+                        items: filters
+                            .map((f) => DropdownMenuItem(value: f, child: Text(f)))
+                            .toList(),
+                        onChanged: (v) {
+                          if (v == null) return;
+                          setState(() => selectedFilter = v);
+                        },
+                      ),
                     ),
-                    const SizedBox(width: 12),
-                    DropdownButton<String>(
-                      value: selectedSort,
-                      items: sorts
-                          .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                          .toList(),
-                      onChanged: (v) {
-                        if (v == null) return;
-                        setState(() => selectedSort = v);
-                      },
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width > 600 ? 220 : 140,
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: selectedSort,
+                        items: sorts
+                            .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                            .toList(),
+                        onChanged: (v) {
+                          if (v == null) return;
+                          setState(() => selectedSort = v);
+                        },
+                      ),
                     ),
-                    const Spacer(),
                     Text('${saleProducts.length} products',
                         style: const TextStyle(color: Colors.black54)),
                   ],

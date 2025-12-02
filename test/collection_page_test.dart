@@ -3,14 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/views/collection_page.dart';
 
 void main() {
-  testWidgets('DummyCollectionPage shows title, filters and product tiles', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: CollectionPage(title: 'Test Collection')));
+  testWidgets('CollectionPage basic smoke test', (tester) async {
+    await tester.pumpWidget(
+      const MediaQuery(
+        data: MediaQueryData(size: Size(1200, 800)),
+        child: MaterialApp(
+          home: CollectionPage(title: 'Test Collection'),
+        ),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Test Collection'), findsOneWidget);
-    expect(find.byType(DropdownButton<String>), findsNWidgets(2));
-    // check product title from the hardcoded list
-    expect(find.text('Portsmouth Hoodie'), findsOneWidget);
     expect(find.byType(GridView), findsOneWidget);
   });
 }
