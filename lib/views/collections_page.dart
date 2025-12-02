@@ -37,40 +37,58 @@ class CollectionsPage extends StatelessWidget {
                       childAspectRatio: 1.0,
                       children: [
                         CollectionTile(
-                          title: 'Collection 1',
-                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          title: 'Essential Range',
+                          imageUrl: 'assets/images/essential_range.jpg',
                           onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 1')),
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Essential Range')),
                           ),
                         ),
 
                         CollectionTile(
-                          title: 'Collection 2',
-                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                          title: 'Pride Collection',
+                          imageUrl: 'assets/images/pride_collection.jpg',
                           onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 2')),
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Pride Collection')),
                           ),
                         ),
 
                         CollectionTile(
-                          title: 'Collection 3',
-                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet2_1024x1024@2x.jpg?v=1752230283',
+                          title: 'Clothing',
+                          imageUrl: 'assets/images/clothing.jpg',
                           onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 3')),
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Clothing')),
                           ),
                         ),
 
                         CollectionTile(
-                          title: 'Collection 4',
-                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000',
+                          title: 'Merchandise',
+                          imageUrl: 'assets/images/merchandise.jpg',
                           onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 4')),
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Merchandise')),
                           ),
                         ),
+
+                        CollectionTile(
+                          title: 'Graduation',
+                          imageUrl: 'assets/images/graduation.jpg',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Graduation')),
+                          ),
+                        ),
+
+                        CollectionTile(
+                          title: 'Popular',
+                          imageUrl: 'assets/images/popular.jpg',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Popular')),
+                          ),
+                        ),                  
                       ],
                     ),
                   ),
