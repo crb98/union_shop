@@ -112,7 +112,8 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
                         mainAxisSpacing: 48,
                         // gives vertical room for image + text like other pages
                         childAspectRatio: 0.78,
-                        children: saleProducts.map((p) => ProductCard(product: p)).toList(),
+                        // show sale prices only on this page
+                        children: saleProducts.map((p) => ProductCard(product: p, showSale: true)).toList(),
                       ),
                     ],
                   ),
