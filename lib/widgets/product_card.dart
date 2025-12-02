@@ -4,13 +4,17 @@ import 'package:union_shop/views/product_page.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  final bool showSale; // new flag
+  final bool showSale;
 
-  const ProductCard({super.key, required this.product, this.showSale = false});
+  const ProductCard({
+    super.key,
+    required this.product,
+    this.showSale = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final imageWidget = product.image.startsWith('http')
+    final Widget imageWidget = product.image.startsWith('http')
         ? Image.network(product.image, fit: BoxFit.cover, errorBuilder: (c, e, st) {
             return Container(
               color: Colors.grey.shade100,
@@ -25,10 +29,7 @@ class ProductCard extends StatelessWidget {
           });
 
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => ProductPage(product: product)),
-      ),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProductPage())),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -44,7 +45,6 @@ class ProductCard extends StatelessWidget {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(product.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
-                // only show sale price when explicitly requested
                 if (showSale && product.onSale)
                   Row(children: [
                     Text(product.salePrice, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8))),

@@ -40,6 +40,7 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
   Widget build(BuildContext context) {
     final repo = ProductRepository();
     final saleProducts = repo.fetchSale();
+
     return AppShell(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
@@ -51,6 +52,11 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
               Text(widget.title,
                   style:
                       const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 12),
+              const Text(
+                'Current sale items. UI-only filters and sorting are provided for layout purposes only.',
+                style: TextStyle(fontSize: 16, height: 1.5),
+              ),
               const SizedBox(height: 16),
 
               // Filter / Sort
@@ -104,7 +110,10 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
                         crossAxisSpacing: 24,
                         mainAxisSpacing: 48,
                         childAspectRatio: 0.78,
-                        children: saleProducts.map((p) => ProductCard(product: p, showSale: true)).toList(),
+                        // show sale prices only on this page
+                        children: saleProducts
+                            .map((p) => ProductCard(product: p, showSale: true))
+                            .toList(),
                       ),
                     ],
                   ),

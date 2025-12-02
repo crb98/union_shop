@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/views/about_us_page.dart';
 import 'package:union_shop/views/sign_in_page.dart';
 import 'package:union_shop/views/collections_page.dart';
-import 'package:union_shop/views/sale_collection_page.dart';
 import 'package:union_shop/widgets/site_shell.dart';
 import 'package:union_shop/repositories/product_repository.dart';
 import 'package:union_shop/widgets/product_card.dart';
@@ -30,7 +29,6 @@ class UnionShopApp extends StatelessWidget {
         '/about': (context) => const AboutUsPage(),
         '/signin': (context) => const SignInPage(),
         '/collections': (context) => const CollectionsPage(),
-        '/sale': (context) => const SaleCollectionPage(),
       },
     );
   }
@@ -150,8 +148,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 48),
                       Builder(builder: (context) {
-                        final repo = ProductRepository();
-                        final products = repo.fetchAll();
+                        final products = ProductRepository().fetchAll();
                         return GridView.count(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),

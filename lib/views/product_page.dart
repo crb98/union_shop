@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/models/product.dart';
 import 'package:union_shop/widgets/site_shell.dart';
 
 class ProductPage extends StatelessWidget {
-  final Product product;
-  const ProductPage({super.key, required this.product});
+  const ProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const imagePath = 'assets/images/hoodie.jpg';
+    const title = 'Classic Sweatshirts';
+    const price = '£25.00';
+    const salePrice = ''; 
+
     return AppShell(
       child: Center(
         child: ConstrainedBox(
@@ -19,24 +22,34 @@ class ProductPage extends StatelessWidget {
                 height: 320,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: product.image.startsWith('http')
-                      ? Image.network(product.image, fit: BoxFit.cover, width: double.infinity)
-                      : Image.asset(product.image, fit: BoxFit.cover, width: double.infinity),
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    errorBuilder: (c, e, st) {
+                      return Container(
+                        color: Colors.grey.shade100,
+                        child: const Center(
+                            child: Icon(Icons.image_not_supported, color: Colors.grey)),
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
-              Text(product.title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox.shrink(),
+              const Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              if (product.onSale)
-                Row(mainAxisSize: MainAxisSize.min, children: [
-                  Text(product.salePrice, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8))),
-                  const SizedBox(width: 12),
-                  Text(product.price, style: const TextStyle(fontSize: 16, decoration: TextDecoration.lineThrough, color: Colors.black54)),
+              if (salePrice.isNotEmpty)
+                const Row(mainAxisSize: MainAxisSize.min, children: [
+                  Text(salePrice, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8))),
+                  SizedBox(width: 12),
+                  Text(price, style: const TextStyle(fontSize: 16, decoration: TextDecoration.lineThrough, color: Colors.black54)),
                 ])
               else
-                Text(product.price, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                const Text(price, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
               const SizedBox(height: 16),
-              const Text('Product description and options go here.'),
+              const Text('Bringing to you, our best selling Classic Sweatshirt. Available in 4 different colours. Soft, comfortable, 50% cotton and 50% polyester.'),
               const SizedBox(height: 16),
               ElevatedButton(onPressed: () {}, child: const Text('Add to cart')),
             ]),

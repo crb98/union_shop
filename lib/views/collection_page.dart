@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/models/product.dart';
 import 'package:union_shop/widgets/site_shell.dart';
-import 'package:union_shop/views/product_page.dart';
+import 'package:union_shop/repositories/product_repository.dart';
+import 'package:union_shop/widgets/product_card.dart';
 
 class CollectionPage extends StatefulWidget {
   final String title;
@@ -37,6 +37,9 @@ class _CollectionPageState extends State<CollectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final repo = ProductRepository();
+    final products = repo.fetchAll();
+
     return AppShell(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
@@ -55,17 +58,15 @@ class _CollectionPageState extends State<CollectionPage> {
               ),
               const SizedBox(height: 16),
 
-              // Filter / Sort bar (UI only, hardcoded options)
+              // Filter / Sort bar (UI only)
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   children: [
-                    // Filter dropdown (updates local state only)
                     DropdownButton<String>(
                       value: selectedFilter,
                       items: filters
-                          .map((f) =>
-                              DropdownMenuItem(value: f, child: Text(f)))
+                          .map((f) => DropdownMenuItem(value: f, child: Text(f)))
                           .toList(),
                       onChanged: (v) {
                         if (v == null) return;
@@ -73,31 +74,25 @@ class _CollectionPageState extends State<CollectionPage> {
                       },
                     ),
                     const SizedBox(width: 12),
-
-                    // Sort dropdown (updates local state only)
                     DropdownButton<String>(
                       value: selectedSort,
                       items: sorts
-                          .map((s) =>
-                              DropdownMenuItem(value: s, child: Text(s)))
+                          .map((s) => DropdownMenuItem(value: s, child: Text(s)))
                           .toList(),
                       onChanged: (v) {
                         if (v == null) return;
                         setState(() => selectedSort = v);
                       },
                     ),
-
                     const Spacer(),
-
-                    // Product count (update when you change tiles)
-                    const Text('4 products', style: TextStyle(color: Colors.black54)),
+                    Text('${products.length} products', style: const TextStyle(color: Colors.black54)),
                   ],
                 ),
               ),
 
               const SizedBox(height: 16),
 
-              // PRODUCTS SECTION (same layout as main.dart)
+              // PRODUCTS SECTION (uses ProductRepository + shared ProductCard)
               Container(
                 color: Colors.white,
                 child: Padding(
@@ -120,30 +115,8 @@ class _CollectionPageState extends State<CollectionPage> {
                             MediaQuery.of(context).size.width > 600 ? 2 : 1,
                         crossAxisSpacing: 24,
                         mainAxisSpacing: 48,
-                        // <1.0 gives extra vertical room for title/price under the square image
                         childAspectRatio: 0.78,
-                        children: const [
-                          ProductCard(
-                            title: 'Portsmouth Hoodie',
-                            price: '£25.00',
-                            imageUrl: 'assets/images/hoodie.jpg',
-                          ),
-                          ProductCard(
-                            title: 'University T‑Shirt',
-                            price: '£12.00',
-                            imageUrl: 'assets/images/t-shirt.jpg',
-                          ),
-                          ProductCard(
-                            title: 'Campus Mug',
-                            price: '£6.50',
-                            imageUrl: 'assets/images/mug.jpg',
-                          ),
-                          ProductCard(
-                            title: 'Scarlet Scarf',
-                            price: '£9.00',
-                            imageUrl: 'assets/images/scarf.jpg',
-                          ),
-                        ],
+                        children: products.map((p) => ProductCard(product: p)).toList(),
                       ),
                     ],
                   ),
@@ -151,99 +124,6 @@ class _CollectionPageState extends State<CollectionPage> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
-  final String salePrice; // optional
-
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    this.salePrice = '',
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        final prod = Product(
-          id: title.toLowerCase().replaceAll(' ', '_'),
-          title: title,
-          price: price,
-          salePrice: salePrice,
-          image: imageUrl,
-        );
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => ProductPage(product: prod)),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[300],
-                      child: const Center(
-                        child: Icon(Icons.image_not_supported, color: Colors.grey),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis),
-                  const SizedBox(height: 6),
-                  if (salePrice.isNotEmpty)
-                    Row(
-                      children: [
-                        Text(
-                          salePrice,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0A72D8)),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          price,
-                          style: const TextStyle(fontSize: 12, color: Colors.black54, decoration: TextDecoration.lineThrough),
-                        ),
-                      ],
-                    )
-                  else
-                    Text(price, style: const TextStyle(fontSize: 13, color: Colors.black54)),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );
