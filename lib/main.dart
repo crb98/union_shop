@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/views/product_page.dart';
 import 'package:union_shop/views/about_us_page.dart';
 import 'package:union_shop/views/sign_in_page.dart';
 import 'package:union_shop/views/collections_page.dart';
 import 'package:union_shop/views/sale_collection_page.dart';
 import 'package:union_shop/widgets/site_shell.dart';
-import 'package:union_shop/models/product.dart';
 import 'package:union_shop/repositories/product_repository.dart';
 import 'package:union_shop/widgets/product_card.dart';
 

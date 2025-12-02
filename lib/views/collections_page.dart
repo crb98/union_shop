@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/widgets/site_shell.dart';
 import 'package:union_shop/views/collection_page.dart';
+import 'package:union_shop/widgets/collection_tile.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -35,59 +36,39 @@ class CollectionsPage extends StatelessWidget {
                       mainAxisSpacing: 16,
                       childAspectRatio: 1.0,
                       children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 1')),
-                            ),
-                            child: _collectionTile(
-                              'Collection 1',
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                            ),
+                        CollectionTile(
+                          title: 'Collection 1',
+                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 1')),
                           ),
                         ),
 
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 2')),
-                            ),
-                            child: _collectionTile(
-                              'Collection 2',
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                            ),
+                        CollectionTile(
+                          title: 'Collection 2',
+                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 2')),
                           ),
                         ),
 
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 3')),
-                            ),
-                            child: _collectionTile(
-                              'Collection 3',
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet2_1024x1024@2x.jpg?v=1752230283',
-                            ),
+                        CollectionTile(
+                          title: 'Collection 3',
+                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet2_1024x1024@2x.jpg?v=1752230283',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 3')),
                           ),
                         ),
 
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => CollectionPage(title: 'Collection 4')),
-                            ),
-                            child: _collectionTile(
-                              'Collection 4',
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000',
-                            ),
+                        CollectionTile(
+                          title: 'Collection 4',
+                          imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCap_1024x1024@2x.jpg?v=1752235000',
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const CollectionPage(title: 'Collection 4')),
                           ),
                         ),
                       ],
@@ -97,61 +78,6 @@ class CollectionsPage extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  // collection tile: image with centered title on top (darkened image)
-  Widget _collectionTile(String title, String imageUrl) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(6),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (c, e, st) {
-                return Container(
-                  color: Colors.grey.shade100,
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                );
-              },
-            ),
-
-            // uniform dark overlay to improve text contrast (no gradient)
-            Container(color: const Color.fromRGBO(0, 0, 0, 0.35)),
-
-            // centered title on top of image
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    shadows: [
-                      Shadow(blurRadius: 6, color: Colors.black54, offset: Offset(0, 2))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );
