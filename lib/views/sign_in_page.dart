@@ -14,7 +14,6 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
-    // initial placeholder text inside the field
     _emailController.text = 'Email';
     _emailFocus = FocusNode();
     _emailFocus.addListener(() {

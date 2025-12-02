@@ -13,7 +13,6 @@ class SaleCollectionPage extends StatefulWidget {
 }
 
 class _SaleCollectionPageState extends State<SaleCollectionPage> {
-  // product data is now provided by ProductRepository
   final List<String> filters = [
     'All products',
     'Clothing',
@@ -52,11 +51,6 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
               Text(widget.title,
                   style:
                       const TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12),
-              const Text(
-                'Current sale items. UI-only filters and sorting are provided for layout purposes only.',
-                style: TextStyle(fontSize: 16, height: 1.5),
-              ),
               const SizedBox(height: 16),
 
               // Filter / Sort
@@ -86,7 +80,6 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
                       },
                     ),
                     const Spacer(),
-                    // show count of sale products from repository
                     Text('${saleProducts.length} products',
                         style: const TextStyle(color: Colors.black54)),
                   ],
@@ -110,9 +103,7 @@ class _SaleCollectionPageState extends State<SaleCollectionPage> {
                             MediaQuery.of(context).size.width > 600 ? 2 : 1,
                         crossAxisSpacing: 24,
                         mainAxisSpacing: 48,
-                        // gives vertical room for image + text like other pages
                         childAspectRatio: 0.78,
-                        // show sale prices only on this page
                         children: saleProducts.map((p) => ProductCard(product: p, showSale: true)).toList(),
                       ),
                     ],
